@@ -128,7 +128,7 @@ id： 产品id
 access_token
 app_cart_cookie_id
 user_id
-_terminal-type 平台类型
+_terminal-type 平台类型:ios，android
 
 返回参数：
 
@@ -138,7 +138,7 @@ _terminal-type 平台类型
 access_token
 app_cart_cookie_id
 user_id 
-_terminal-type  平台类型
+_terminal-type  平台类型，ios，android
 count 商品数量
 product_id 产品ID
 attributes　(可选参数，可以为空)
