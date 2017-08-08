@@ -2,11 +2,18 @@ package com.bwie.store1505d.network;
 
 import com.bwie.store1505d.model.CartData;
 import com.bwie.store1505d.model.RootData;
+import com.bwie.store1505d.model.User;
 import com.bwie.store1505d.model.UserData;
 
+import java.util.Map;
+
+import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -42,7 +49,21 @@ public interface StoreAPI {
                                         @Field("app_cart_cookie_id") String cart_id,
                                         @Field("user_id") int uid,
                                         @Field("_terminal-type") String type
+
+
     );
 
+
+    @GET("user/view")
+    Observable<RootData<UserData>> getUser(@Query("uid")String uid);
+
+
+    @FormUrlEncoded
+    @POST("user/view")
+    Observable<RootData<UserData>> updateUser(@FieldMap Map<String,String> map);
+
+
+    @POST("user/view")
+    Observable<RootData<UserData>> postUser(@Body User user) ;
 
 }
