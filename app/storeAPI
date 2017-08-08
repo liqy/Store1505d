@@ -1,0 +1,145 @@
+
+
+
+第一版：
+ 基础URL:http://api.eleteam.com/v1/
+
+
+ 1.登录接口
+ user/login   post
+ 参数
+ mobile:手机号，正则验证
+ password:最短6位，大小写字符都有
+ 返回数据
+ {
+    "status": true,
+    "code": 1,
+    "message": "调用成功",
+    "data": {
+        "user": {
+            "id": 152,
+            "username": null,
+            "auth_key": null,
+            "password_hash": "$2y$13$eaRD./9LahM7u6sLS721cuXqGh9K2RveQ.QKKPO9uFfXkcg3vO1J2",
+            "password_reset_token": null,
+            "email": null,
+            "status": 1,
+            "created_at": 1502082579,
+            "updated_at": 1502082579,
+            "access_token": "9Np2ZGW7dzzy8MZdAnDELKI0J79Djls3",
+            "mobile": "18610463510",
+            "password_plain": "123456",
+            "updated_by": null,
+            "created_by": null,
+            "avatar": "http://data.eleteam.com/uploads/public/user/default.jpg"
+        },
+        "app_cart_cookie_id": "d6cf5c905623ecb04235fcbe27378940"
+    },
+    "share": {}
+}
+
+参数说明：
+
+message：服务端返回提示性信息，错误时，客户端提示此信息
+
+data:数据内容
+
+
+2.注册接口第一步，提交手机号码
+user/register-step1  post
+参数
+mobile:手机号，正则验证
+返回数据：
+{
+    "status": true,
+    "code": 1,
+    "message": "调用成功",
+    "data": {
+        "mobile": "18513309059"
+    },
+    "share": {}
+}
+
+３.注册接口第二步，提交手机号码、密码
+/user/register-step2　post
+参数：
+ mobile:手机号，正则验证
+ password:最短6位，大小写字符都有
+返回数据：
+
+4.注册接口第三步，提交手机号码、密码、验证码
+/user/register-step3　post
+参数：
+ mobile:手机号，正则验证
+ password:最短6位，大小写字符都有
+ code:统一使用8888
+返回数据：
+
+5.重置密码 - 提交手机号码
+/app/user/forget-password-step1-post  post
+参数
+mobile:手机号，正则验证
+返回数据：
+
+6.重置密码 - 提交手机号码和密码
+/app/user/forget-password-step2-post
+参数：
+ mobile:手机号，正则验证
+ password:最短6位，大小写字符都有
+返回数据：
+
+7.重置密码 - 提交手机号码、密码、验证码
+/app/user/forget-password-step3-post
+参数：
+ mobile:手机号，正则验证
+ password:最短6位，大小写字符都有
+ code:统一使用8888
+返回数据：
+
+
+8.首页接口
+/category/list-with-product  get
+参数：无
+
+9.查看打折的商品列表
+/product/list-featured-price   get
+参数：无
+
+10.为你精选的商品列表
+/product/list-featured-topic  get
+参数：无
+
+11.销量最高的商品列表
+/product/list-top-seller  get
+参数：无
+
+
+12.产品详情接口：
+product/view?id=3  get
+参数：
+id： 产品id
+
+返回数据：
+
+
+13.购物车 
+/cart post
+参数前三个登录接口获得
+access_token
+app_cart_cookie_id
+user_id
+_terminal-type 平台类型
+
+返回参数：
+
+14.添加购物车
+/cart/add  post
+参数：前三个登录接口获得
+access_token
+app_cart_cookie_id
+user_id 
+_terminal-type  平台类型
+count 商品数量
+product_id 产品ID
+attributes　(可选参数，可以为空)
+
