@@ -22,8 +22,8 @@
 
         <ImageView
             android:id="@+id/p_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@mipmap/ic_launcher" />
 
     </LinearLayout>
@@ -87,11 +87,11 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/minus"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:padding="4dp"
                 android:background="@drawable/operator_left_bg"
-
                 android:src="@drawable/operator_minus_undo" />
 
             <TextView
@@ -101,9 +101,12 @@
                 android:background="@drawable/operator_middle_bg"
                 android:gravity="center"
                 android:padding="2dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 android:text="3" />
 
             <ImageView
+                android:id="@+id/plus"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:padding="4dp"

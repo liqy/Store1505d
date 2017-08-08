@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.bwie.store1505d.adapter.CartAdapter;
 import com.bwie.store1505d.model.CartData;
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
     ListView listView;
     CartAdapter adapter;
+
+    TextView to_order;
+    TextView total_price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,22 +87,24 @@ public class MainActivity extends AppCompatActivity {
                                         Log.d(getLocalClassName(), cartDataRootData.toString());
 
                                         adapter.addData(cartDataRootData.data.cartItems);
+                                        adapter.totalPrice();
                                     }
                                 })
                         ;
 
                     }
                 });
-
-
     }
 
     /**
      * 初始化UI
      */
     private void initUI() {
+        total_price=(TextView)findViewById(R.id.total_price);
+        to_order=(TextView)findViewById(R.id.to_order);
+
         listView = (ListView) findViewById(R.id.listView);
-        adapter = new CartAdapter(this);
+        adapter = new CartAdapter(this,total_price,to_order);
         listView.setAdapter(adapter);
     }
 }
