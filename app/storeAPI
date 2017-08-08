@@ -143,3 +143,16 @@ count 商品数量
 product_id 产品ID
 attributes　(可选参数，可以为空)
 
+15.设置购物车项的数量
+/app/cart/setCartItemNum/%@
+
+16.删除购物车项
+/cart-item/delete?id=%@
+
+17.选取购物车项
+/app/cart/setIsSelected/%@
+
+18.从购物车添加预购订单
+/preorder/create
+
+19.
