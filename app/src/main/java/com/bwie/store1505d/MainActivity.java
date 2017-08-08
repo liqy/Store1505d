@@ -16,21 +16,26 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+/**
+ * 购物车
+ * <p>
+ * android使用shape stroke描边只保留底部
+ * http://blog.csdn.net/liuqz2009/article/details/70313070
+ * <p>
+ * ListView 局部更新
+ * http://blog.csdn.net/linglongxin24/article/details/53020164?ref=myread
+ */
 public class MainActivity extends AppCompatActivity {
 
-    User user;
     ListView listView;
     CartAdapter adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initUI();
 
-        listView = (ListView) findViewById(R.id.listView);
-        adapter = new CartAdapter(this);
-        listView.setAdapter(adapter);
         /**
          * 登录
          */
@@ -53,36 +58,47 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onNext(RootData<UserData> userDataRootData) {
                         Log.d(getLocalClassName(), userDataRootData.toString());
-                        user = userDataRootData.data.user;
-                        //TODO 保存起来
+                        User user = userDataRootData.data.user;
+                        //TODO 保存起来,存放在SQLite中
+
+                        //获取购物车
+                        RetrofitHelper.getStoreAPI()
+                                .cart(user.access_token, userDataRootData.data.app_cart_cookie_id, user.id, "ios")
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Subscriber<RootData<CartData>>() {
+                                    @Override
+                                    public void onCompleted() {
+                                        //TODO 请求完成
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        // TODO 请求错误
+                                    }
+
+                                    @Override
+                                    public void onNext(RootData<CartData> cartDataRootData) {
+                                        //TODO 数据处理
+                                        Log.d(getLocalClassName(), cartDataRootData.toString());
+
+                                        adapter.addData(cartDataRootData.data.cartItems);
+                                    }
+                                })
+                        ;
+
                     }
                 });
 
 
-        //获取购物车
-        RetrofitHelper.getStoreAPI()
-                .cart("TW5yIGDt5rYDnualXyp6A4rdQNpZoSKQ", "ff51418d453201602a768743c5ac648c", 158, "ios")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<RootData<CartData>>() {
-                    @Override
-                    public void onCompleted() {
+    }
 
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(RootData<CartData> cartDataRootData) {
-                        Log.d(getLocalClassName(), cartDataRootData.toString());
-
-                        adapter.addData(cartDataRootData.data.cartItems);
-                    }
-                })
-        ;
-
+    /**
+     * 初始化UI
+     */
+    private void initUI() {
+        listView = (ListView) findViewById(R.id.listView);
+        adapter = new CartAdapter(this);
+        listView.setAdapter(adapter);
     }
 }
